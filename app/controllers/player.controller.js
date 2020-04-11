@@ -1,4 +1,4 @@
-const Player = require("../models/player.model.js");
+const { Player } = require("../models/index.model.js");
 
 // Create and Save a new Player
 exports.create = (req, res) => {
@@ -43,7 +43,7 @@ exports.findOne = (req, res) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `Not found Player with id ${req.params.playerId}.`
+          message: `No Player found with id ${req.params.playerId}.`
         });
       } else {
         res.status(500).send({
