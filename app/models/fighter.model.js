@@ -1,8 +1,10 @@
 module.exports = (sql) => {
   //constructor
-  const Fighter = (fighter) => {
-    this.name = fighter.name;
-    this.dlc = fighter.dlc;
+  const Fighter = class {
+    constructor(fighter) {
+      this.name = fighter.name;
+      this.dlc = fighter.dlc || false;
+    }
   };
 
   Fighter.create = (newFighter, result) => {
@@ -61,6 +63,29 @@ module.exports = (sql) => {
       console.log("fighters: ", res);
       result(null, res);
     });
+  };
+
+  Fighter.updateById = (id, fighter, result) => {
+    sql.query(
+      "UPDATE fighters SET name = ?, dlc = ? WHERE id = ?",
+      [fighter.name, fighter.dlc, id],
+      (err, res) => {
+        if (err) {
+          console.log("error: ", err);
+          result(null, err);
+          return;
+        }
+
+        if (res.affectedRows == 0) {
+          // not found Fighter with the id
+          result({ kind: "not_found" }, null);
+          return;
+        }
+
+        console.log("updated fighter: ", { id: id, ...fighter });
+        result(null, { id: id, ...fighter });
+      }
+    );
   };
 
   return Fighter;

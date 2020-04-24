@@ -71,3 +71,31 @@ exports.findLike = (req, res) => {
     } else res.send(data);
   });
 };
+
+// Update a single Fighter by fighterId
+exports.update = (req, res) => {
+  // Validate Request
+  if (!req.body) {
+    res.status(400).send({
+      message: "Content can not be empty!"
+    });
+  }
+
+  Fighter.updateById(
+    req.params.fighterId,
+    new Fighter(req.body),
+    (err, data) => {
+      if (err) {
+        if (err.kind === "not_found") {
+          res.status(404).send({
+            message: `No Fighter found with id ${req.params.fighterId}.`
+          });
+        } else {
+          res.status(500).send({
+            message: "Error updating Fighter with id " + req.params.fighterId
+          });
+        }
+      } else res.send(data);
+    }
+  );
+};

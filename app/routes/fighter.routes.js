@@ -5,9 +5,6 @@ module.exports = app => {
   app.post('/fighters', fighters.create);
 
   app.get('/fighters', (req,res) => {
-
-    console.log(req.query);
-
     if(req.query.fighterName) {
       // get a Fighter like a Name
       fighters.findLike(req, res);
@@ -19,4 +16,7 @@ module.exports = app => {
 
   // get a Fighter by Id
   app.get('/fighters/:fighterId', fighters.findOne);
+
+  // update a Fighter with fighterId
+  app.put("/fighters/:fighterId", fighters.update);
 };

@@ -1,4 +1,4 @@
-const { Player } = require("../models/index.model.js");
+const Player = require("../models/player.model.js");
 
 // Create and Save a new Player
 exports.create = (req, res) => {
@@ -43,7 +43,7 @@ exports.findOne = (req, res) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
-          message: `No Player found with id ${req.params.playerId}.`
+          message: `Not found Player with id ${req.params.playerId}.`
         });
       } else {
         res.status(500).send({
@@ -54,35 +54,7 @@ exports.findOne = (req, res) => {
   });
 };
 
-// Update a single Player by playerId
-exports.update = (req, res) => {
-  // Validate Request
-  if (!req.body) {
-    res.status(400).send({
-      message: "Content can not be empty!"
-    });
-  }
-
-  Player.updateById(
-    req.params.playerId,
-    new Player(req.body),
-    (err, data) => {
-      if (err) {
-        if (err.kind === "not_found") {
-          res.status(404).send({
-            message: `No Player found with id ${req.params.playerId}.`
-          });
-        } else {
-          res.status(500).send({
-            message: "Error updating Player with id " + req.params.playerId
-          });
-        }
-      } else res.send(data);
-    }
-  );
-};
-
-// Delete a single Player by playerId
+// Delet a single Player by playerId
 exports.delete = (req, res) => {
   Player.remove(req.params.playerId, (err, _data) => {
     if (err) {
@@ -98,3 +70,4 @@ exports.delete = (req, res) => {
     } else res.send({ message: `Player was deleted successfully!` });
   });
 };
+

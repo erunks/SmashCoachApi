@@ -10,9 +10,6 @@ module.exports = app => {
   // get a Player by Id
   app.get('/players/:playerId', players.findOne);
 
-  // update a Player with playerId
-  app.put("/players/:playerId", players.update);
-
-  // delete a Player with playerId
+  // Delete a Customer with playerId
   app.delete("/players/:playerId", players.delete);
 };
