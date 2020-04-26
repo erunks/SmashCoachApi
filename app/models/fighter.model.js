@@ -1,14 +1,19 @@
+const BaseModel = require('./base.model.js');
+
 module.exports = (sql) => {
   //constructor
-  const Fighter = class {
+  const Fighter = class extends BaseModel {
     constructor(fighter) {
+      super();
       this.name = fighter.name;
       this.dlc = fighter.dlc || false;
     }
   };
 
   Fighter.create = (newFighter, result) => {
-    sql.query("INSERT INTO fighters SET ?", newFighter, (err, res) => {
+    sql.query(`INSERT fighters SET ${newFighter.sqlString()}`,
+    newFighter.definedValues(),
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -67,8 +72,8 @@ module.exports = (sql) => {
 
   Fighter.updateById = (id, fighter, result) => {
     sql.query(
-      "UPDATE fighters SET name = ?, dlc = ? WHERE id = ?",
-      [fighter.name, fighter.dlc, id],
+      `UPDATE fighters SET ${fighter.sqlString()}`,
+      [...fighter.definedValues(), id],
       (err, res) => {
         if (err) {
           console.log("error: ", err);

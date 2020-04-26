@@ -1,15 +1,20 @@
+const BaseModel = require('./base.model.js');
+
 module.exports = (sql) => {
   //constructor
-  const Stage = class {
-    constructor(stage) {
-      this.name = stage.name;
-      this.legal = stage.legal || false;
-      this.dlc = stage.dlc || false;
+  const Stage = class extends BaseModel{
+    constructor({name, legal, dlc} = {legal: false, dlc: true}) {
+      super();
+      this.name = name;
+      this.legal = legal;
+      this.dlc = dlc;
     }
   };
 
   Stage.create = (newStage, result) => {
-    sql.query(`INSERT INTO stages (name, legal, dlc) VALUES ("${newStage.name}", ${newStage.legal}, ${newStage.dlc})`, (err, res) => {
+    sql.query(`INSERT stages SET ${newStage.sqlString()}`,
+    newStage.definedValues(),
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -68,8 +73,8 @@ module.exports = (sql) => {
 
   Stage.updateById = (id, stage, result) => {
     sql.query(
-      "UPDATE stages SET name = ?, legal = ?, dlc = ? WHERE id = ?",
-      [stage.name, stage.legal, stage.dlc, id],
+      `UPDATE stages SET ${stage.sqlString()} WHERE id = ?`,
+      [...stage.definedValues(), id],
       (err, res) => {
         if (err) {
           console.log("error: ", err);

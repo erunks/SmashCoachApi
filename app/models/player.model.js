@@ -1,13 +1,18 @@
+const BaseModel = require('./base.model.js');
+
 module.exports = (sql) => {
   //constructor
-  const Player = class {
+  const Player = class extends BaseModel {
     constructor (player) {
+      super();
       this.name = player.name;
     }
   };
 
   Player.create = (newPlayer, result) => {
-    sql.query(`INSERT INTO players (name) VALUES ("${newPlayer.name}")`, (err, res) => {
+    sql.query(`INSERT players SET ${newPlayer.sqlString()}`,
+    newPlayer.definedValues(),
+    (err, res) => {
       if (err) {
         console.log("error: ", err);
         result(err, null);
@@ -53,8 +58,8 @@ module.exports = (sql) => {
 
   Player.updateById = (id, player, result) => {
     sql.query(
-      "UPDATE players SET name = ? WHERE id = ?",
-      [player.name, id],
+      `UPDATE players SET ${player.sqlString()} WHERE id = ?`,
+      [...player.definedValues(), id],
       (err, res) => {
         if (err) {
           console.log("error: ", err);
