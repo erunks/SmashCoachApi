@@ -3,10 +3,13 @@ const BaseModel = require('./base.model.js');
 module.exports = (sql) => {
   //constructor
   const Fighter = class extends BaseModel {
-    constructor(fighter) {
-      super();
-      this.name = fighter.name;
-      this.dlc = fighter.dlc || false;
+    constructor({
+      dlc = false
+    } = {}) {
+      super({
+        dlc,
+        ...arguments[0]
+      });
     }
   };
 

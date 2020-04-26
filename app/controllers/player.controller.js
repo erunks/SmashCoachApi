@@ -10,9 +10,7 @@ exports.create = (req, res) => {
   }
 
   // Create a Player
-  const player = new Player({
-    name: req.body.name
-  });
+  const player = new Player({...req.body});
 
   // Save Player in the database
   Player.create(player, (err, data) => {
@@ -26,7 +24,7 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Players from the database
-exports.findAll = (req, res) => {
+exports.findAll = (_req, res) => {
   Player.getAll((err, data) => {
     if (err)
       res.status(500).send({

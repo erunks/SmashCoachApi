@@ -10,9 +10,7 @@ exports.create = (req, res) => {
   }
 
   // Create a Stage
-  const stage = new Stage({
-    name: req.body.name
-  });
+  const stage = new Stage({...req.body});
 
   // Save Stage in the database
   Stage.create(stage, (err, data) => {
@@ -26,7 +24,7 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Stages from the database
-exports.findAll = (req, res) => {
+exports.findAll = (_req, res) => {
   Stage.getAll((err, data) => {
     if (err)
       res.status(500).send({

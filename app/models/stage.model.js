@@ -3,11 +3,15 @@ const BaseModel = require('./base.model.js');
 module.exports = (sql) => {
   //constructor
   const Stage = class extends BaseModel{
-    constructor({name, legal, dlc} = {legal: false, dlc: true}) {
-      super();
-      this.name = name;
-      this.legal = legal;
-      this.dlc = dlc;
+    constructor({
+      legal = false,
+      dlc = false
+    } = {}) {
+      super({
+        legal,
+        dlc,
+        ...arguments[0]
+      });
     }
   };
 

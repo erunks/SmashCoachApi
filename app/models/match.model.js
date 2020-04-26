@@ -3,18 +3,21 @@ const BaseModel = require('./base.model.js');
 module.exports = (sql) => {
   //constructor
   const Match = class extends BaseModel {
-    constructor (match) {
-      super();
-      this.stage_id = match.stage_id;
-      this.match_one_id = match.match_one_id;
-      this.fighter_one_id = match.fighter_one_id;
-      this.stocks_taken_by_match_one = match.stocks_taken_by_match_one;
-      this.stage_chosen_by_match_one = match.stage_chosen_by_match_one || false;
-      this.match_two_id = match.match_two_id;
-      this.fighter_two_id = match.fighter_two_id;
-      this.stocks_taken_by_match_two = match.stocks_taken_by_match_two;
-      this.stage_chosen_by_match_two = match.stage_chosen_by_match_two || false;
-      this.tournament_match = match.tournament_match || false;
+    constructor ({
+      stocks_taken_by_player_one = 0,
+      stage_chosen_by_player_one = false,
+      stocks_taken_by_player_two = 0,
+      stage_chosen_by_player_two = false,
+      tournament_match = false
+    } = {}) {
+      super({
+        stocks_taken_by_player_one,
+        stage_chosen_by_player_one,
+        stocks_taken_by_player_two,
+        stage_chosen_by_player_two,
+        tournament_match,
+        ...arguments[0]
+      });
     }
   };
 
@@ -67,7 +70,7 @@ module.exports = (sql) => {
 
   Match.updateById = (id, match, result) => {
     sql.query(
-      `UPDATE matchs SET ${match.sqlString()} WHERE id = ?`,
+      `UPDATE matches SET ${match.sqlString()} WHERE id = ?`,
       [...match.definedValues(), id],
       (err, res) => {
         if (err) {

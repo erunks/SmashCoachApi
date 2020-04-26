@@ -1,15 +1,18 @@
 module.exports = app => {
-  const players = require('../controllers/player.controller.js');
+  const matches = require('../controllers/match.controller.js');
 
-  // create a new Player
-  app.post('/players', players.create);
+  // create a new Match
+  app.post('/matches', matches.create);
 
-  // get all Players
-  app.get('/players', players.findAll);
+  // get all Matches
+  app.get('/matches', matches.findAll);
 
-  // get a Player by Id
-  app.get('/players/:playerId', players.findOne);
+  // get a Match by Id
+  app.get('/matches/:matchId', matches.findOne);
 
-  // Delete a Customer with playerId
-  app.delete("/players/:playerId", players.delete);
+  // update a Stage with stageId
+  app.put('/matches/:matchId', matches.update);
+
+  // delete a Match with matchId
+  app.delete('/matches/:matchId', matches.delete);
 };

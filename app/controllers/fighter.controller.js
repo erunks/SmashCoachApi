@@ -10,10 +10,7 @@ exports.create = (req, res) => {
   }
 
   // Create a Fighter
-  const fighter = new Fighter({
-    name: req.body.name,
-    dlc: req.body.dlc
-  });
+  const fighter = new Fighter({...req.body});
 
   // Save Fighter in the database
   Fighter.create(fighter, (err, data) => {
@@ -27,7 +24,7 @@ exports.create = (req, res) => {
 };
 
 // Retrieve all Fighters from the database
-exports.findAll = (req, res) => {
+exports.findAll = (_req, res) => {
   Fighter.getAll((err, data) => {
     if (err)
       res.status(500).send({

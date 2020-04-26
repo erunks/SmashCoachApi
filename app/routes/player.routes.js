@@ -11,8 +11,8 @@ module.exports = app => {
   app.get('/players/:playerId', players.findOne);
 
   // update a Player with playerId
-  app.put("/players/:playerId", players.update);
+  app.put('/players/:playerId', players.update);
 
   // delete a Player with playerId
-  app.delete("/players/:playerId", players.delete);
+  app.delete('/players/:playerId', players.delete);
 };

@@ -18,5 +18,5 @@ module.exports = app => {
   app.get('/fighters/:fighterId', fighters.findOne);
 
   // update a Fighter with fighterId
-  app.put("/fighters/:fighterId", fighters.update);
+  app.put('/fighters/:fighterId', fighters.update);
 };

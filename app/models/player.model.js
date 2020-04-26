@@ -3,9 +3,10 @@ const BaseModel = require('./base.model.js');
 module.exports = (sql) => {
   //constructor
   const Player = class extends BaseModel {
-    constructor (player) {
-      super();
-      this.name = player.name;
+    constructor () {
+      super({
+        ...arguments[0]
+      });
     }
   };
 
