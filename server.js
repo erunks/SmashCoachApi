@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
@@ -15,9 +14,6 @@ app.use(bodyParser.json());
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
-
-// enabling CORS for all requests
-app.use(cors());
 
 // adding morgan to log HTTP requests
 app.use(morgan('combined'));
