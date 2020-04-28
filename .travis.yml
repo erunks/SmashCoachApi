@@ -1,0 +1,18 @@
+dist: xenial
+language: node_js
+install: npm install
+
+env:
+  # Github deployment key
+  - secure: "Q1vNZxIIG5pXrrPqgjqkv0q8LWAw4UwdBwIZp59UoN2MHUU097sLgESSgPfyxOT8u+m/qmfDSEZjqaZtBZugnj/8gr+7t9wQLm9VnxwUZXK4d3lNFwq8k+Z1a/9xrcfpBJbwr8sLBrJsuZIua3vK7GhP9sm1Ms3tFTrVfWcPm8OKpQvR/1BZvGLTS+iXLlIyQMLieRnLN9qCZGr6xE9yvs0sEOaV9iT2oN9iyHd59c2KvjR4iK0Nf5B6f9EXVtnzVIqAD4Hw/0SPcRnOKi8amyUZCIM6WiU7Ds5W+Lcp1fmR1ZFGew4Wh695zokDsqp4gJv2s6/ib6bK+yM5q9/eAgp8xQBDZ6TO/PQ0mvod36JE07PHFT9O9nHtIwrNdgBPV9aWPhuqL85nG8dAwyDYNz0iucpaWYxZZxfYcqz94ltSDA/rvvMVFL7T1CeRPrmb4YUUpRftdfC1XN2qxyifdNl4B68eUaqdMmJFNKltM8wFDRxByWP7HdXOZ/qTfqBpL36vARK1KXNsB90okIBlJWoefticU1Pqv/lNjSifKuFNApvQSuiKIMWIz+IIc78aJQ/Ylz7jzTT8cToQAvJ2VP6s14mAzs1YFn0ACJ7EH/jUO2Zm4cjCiN/6YJrqzFZMCVk4tbnDDztYgksydtOlWpOdUYzjTwLPyjFYnWywq6U="
+
+matrix:
+  fast_finish: true
+
+cache: 
+  npm: false
+
+after_success:
+  - "curl -o /tmp/travis-automerge https://raw.githubusercontent.com/cdown/travis-automerge/master/travis-automerge"
+  - "chmod a+x /tmp/travis-automerge"
+  - "BRANCHES_TO_MERGE_REGEX='^develop$' BRANCH_TO_MERGE_INTO=master GITHUB_REPO=cdown/srt /tmp/travis-automerge"
