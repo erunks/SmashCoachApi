@@ -1,6 +1,6 @@
-module.exports = app => {
-  const matches = require('../controllers/match.controller.js');
+const matches = require('../controllers/match.controller.js');
 
+module.exports = (app) => {
   // create a new Match
   app.post('/matches', matches.create);
 
