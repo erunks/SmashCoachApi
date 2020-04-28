@@ -1,11 +1,11 @@
-module.exports = app => {
-  const fighters = require('../controllers/fighter.controller.js');
+const fighters = require('../controllers/fighter.controller.js');
 
+module.exports = (app) => {
   // create a new Fighter
   app.post('/fighters', fighters.create);
 
   app.get('/fighters', (req,res) => {
-    if(req.query.fighterName) {
+    if (req.query.fighterName) {
       // get a Fighter like a Name
       fighters.findLike(req, res);
     } else {

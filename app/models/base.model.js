@@ -1,25 +1,23 @@
 const BaseModel = class {
-  constructor(source) {
-    Object.assign(this, source);
+  constructor(...args) {
+    Object.assign(this, ...args);
   }
 
   definedKeys() {
-    return Object.getOwnPropertyNames(this).map((e) => {
-      if (!!this[e]) {
-        return e
-      }
-    }).filter(e => !!e);
-  };
+    return Object.getOwnPropertyNames(this)
+      .map((e) => (this[e] ? e : null))
+      .filter((e) => Boolean(e));
+  }
 
   definedValues() {
     return this.definedKeys().map((e) => {
-      if(!!e.match('id|stocks')){
-        return parseInt(this[e]);
+      if (e.match('id|stocks')) {
+        return parseInt(this[e], 10);
       } else {
         return this[e];
       }
     });
-  };
+  }
 
   sqlString() {
     const definedKeys = this.definedKeys();
@@ -32,7 +30,7 @@ const BaseModel = class {
     }
 
     return `${sql} = ?`;
-  };
+  }
 };
 
 module.exports = BaseModel;

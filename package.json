@@ -5,6 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "npm run lint:eslint -- . ",
+    "lint:fix": "npm run lint:eslint -- . --fix",
+    "lint:eslint": "eslint --ignore-path .gitignore",
     "dev": "node -r dotenv/config server.js"
   },
   "keywords": [],
@@ -16,6 +19,22 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-json": "^2.1.1",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.1.7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint"
+    ]
   }
 }
