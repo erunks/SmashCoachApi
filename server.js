@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
+const port = process.env.PORT || 4000;
 const app = express();
 
 // parse requests of content-type: application/json
@@ -17,6 +18,6 @@ app.get('/', (req, res) => {
 require('./app/routes/index.routes.js')(app);
 
 // set port, listen for requests
-app.listen(4000, () => {
-  console.log('Server is running on port 4000.');
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}.`);
 });
