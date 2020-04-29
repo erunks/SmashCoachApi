@@ -4,12 +4,13 @@ module.exports = (sql) => {
   // constructor
   const Stage = class extends BaseModel {
     constructor(...args) {
-      const params = {
+      const requiredArgs = ['name'];
+      const defaults = {
         legal: false,
         dlc: false,
       };
 
-      super({ ...Object.assign(params, ...args) });
+      super(requiredArgs, { ...Object.assign(defaults, ...args) });
     }
   };
 

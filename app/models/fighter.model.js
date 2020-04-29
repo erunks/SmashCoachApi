@@ -4,11 +4,12 @@ module.exports = (sql) => {
   // constructor
   const Fighter = class extends BaseModel {
     constructor(...args) {
+      const requiredArgs = ['name'];
       const defaults = {
         dlc: false
       };
 
-      super({ ...Object.assign(defaults, ...args) });
+      super(requiredArgs, { ...Object.assign(defaults, ...args) });
     }
   };
 

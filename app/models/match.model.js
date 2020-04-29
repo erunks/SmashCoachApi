@@ -4,6 +4,13 @@ module.exports = (sql) => {
   // constructor
   const Match = class extends BaseModel {
     constructor(...args) {
+      const requiredArgs = [
+        'stage_id',
+        'player_one_id',
+        'fighter_one_id',
+        'player_two_id',
+        'fighter_two_id'
+      ];
       const defaults = {
         stocks_taken_by_player_one: 0,
         stage_chosen_by_player_one: false,
@@ -12,7 +19,7 @@ module.exports = (sql) => {
         tournament_match: false
       };
 
-      super({ ...Object.assign(defaults, ...args) });
+      super(requiredArgs, { ...Object.assign(defaults, ...args) });
     }
   };
 

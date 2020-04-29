@@ -2,7 +2,12 @@ const BaseModel = require('./base.model.js');
 
 module.exports = (sql) => {
   // constructor
-  const Player = class extends BaseModel {};
+  const Player = class extends BaseModel {
+    constructor(...args) {
+      const requiredArgs = ['name'];
+      super(requiredArgs, args[0]);
+    }
+  };
 
   Player.create = (newPlayer, result) => {
     sql.query(`INSERT players SET ${newPlayer.sqlString()}`,
