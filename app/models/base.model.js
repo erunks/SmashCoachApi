@@ -1,6 +1,16 @@
 const BaseModel = class {
-  constructor(...args) {
-    Object.assign(this, ...args);
+  constructor(requiredArgs, ...args) {
+    this._validateArguments(requiredArgs, args[0]);
+    Object.assign(this, args[0]);
+  }
+
+  _validateArguments(requiredArgs, receivedArgs) {
+    const props = Object.getOwnPropertyNames(receivedArgs);
+    if (props.length < requiredArgs.length) {
+      throw new Error('Received arguments size is less than what was required');
+    } else if (!requiredArgs.every(arg => props.includes(arg))) {
+      throw new Error('A required property is missing from what was received');
+    }
   }
 
   definedKeys() {
