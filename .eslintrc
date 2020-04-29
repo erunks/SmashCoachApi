@@ -4,6 +4,12 @@
     "node": true
   },
 
+  "globals": {
+    "describe": "readonly",
+    "expect": "readonly",
+    "it": "readonly"
+  },
+
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module"

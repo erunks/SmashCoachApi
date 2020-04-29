@@ -13,15 +13,15 @@ describe('BaseModel', () => {
 
     describe('when the required parameters are missing', () => {
       it('should raise an error', () => {
-        expect(() => { new BaseModel(); }).toThrow();
+        expect(() => { BaseModel(); }).toThrow();
       });
 
       it('should raise an error', () => {
-        expect(() => { new BaseModel(requiredArgs, {}); }).toThrow();
+        expect(() => { BaseModel(requiredArgs, {}); }).toThrow();
       });
 
       it('should raise an error', () => {
-        expect(() => { new BaseModel(requiredArgs, { id: 1 }); }).toThrow();
+        expect(() => { BaseModel(requiredArgs, { id: 1 }); }).toThrow();
       });
     });
   });
@@ -29,7 +29,7 @@ describe('BaseModel', () => {
   describe('#definedKeys', () => {
     it('returns the defined keys on the model', () => {
       const base = new BaseModel(
-        requiredArgs, 
+        requiredArgs,
         {
           name: 'BaseModel',
           a: '1',
