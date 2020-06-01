@@ -1,5 +1,5 @@
-const express = require("express");
-const bodyParser = require("body-parser");
+const express = require('express');
+const bodyParser = require('body-parser');
 const helmet = require('helmet');
 const morgan = require('morgan');
 
@@ -18,11 +18,11 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // adding morgan to log HTTP requests
 app.use(morgan('combined'));
 
-//setup middleware
+// setup middleware
 require('./app/middleware/index.js')(app);
 
 // setup routes
-require("./app/routes/index.routes.js")(app);
+require('./app/routes/index.routes.js')(app);
 
 // set port, listen for requests
 app.listen(port, () => {

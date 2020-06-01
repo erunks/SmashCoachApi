@@ -1,4 +1,7 @@
-module.exports = app => {
-  require('./cors.js')(app);
-  require('./jwt.js')(app);
+const cors = require('./cors');
+// const jwt = require('./jwt');
+
+module.exports = (app) => {
+  cors(app);
+  // jwt(app);
 };
