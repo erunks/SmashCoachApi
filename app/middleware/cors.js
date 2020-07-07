@@ -1,10 +1,10 @@
 const cors = require('cors');
 
-const env_whitelist = process.env.CORS_WHITELIST.split(',') || [];
-const whitelist = ['http://localhost:3000'] + env_whitelist;
+const env_allowlist = process.env.CORS_ALLOWLIST ? process.env.CORS_ALLOWLIST.split(',') : [];
+const allowlist = ['http://localhost:3000'] + env_allowlist;
 const corsOptions = {
   origin(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (allowlist.indexOf(origin) !== -1) {
       callback(null, true)
     } else {
       callback(new Error('Not allowed by CORS'))
